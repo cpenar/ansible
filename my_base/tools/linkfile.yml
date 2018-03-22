@@ -1,0 +1,41 @@
+---
+# Link file and save current version before linking
+# ARGS:
+#   src: the linked file as a path
+#   dest: the link as a path
+
+- name: File stat
+  stat:
+    path: "{{ dest }}"
+  register: thelink
+
+- name: Save the current dest if needed
+  when: thelink.stat.islnk is defined 
+  block:
+     - name: Save if not a symlink
+       when: not thelink.stat.islnk
+       copy:
+          src: "{{ dest }}"
+          dest: "{{ dest }}.saved_{{ formatdatetime }}"
+     - name: Save if symlink but wrong src
+       when: (thelink.stat.islnk) and
+             (thelink.stat.lnk_source != src)
+       file:
+          src: "{{ thelink.stat.lnk_source }}"
+          dest: "{{ dest }}.saved_{{ formatdatetime }}"
+          state: link
+
+- name: Ensure directory exist to create link
+  command: dirname "{{ dest }}"
+  register: dirpath
+  changed_when: False
+- file:
+   path: "{{ dirpath.stdout }}"
+   state: directory
+- name: Link the conffiles
+  file:
+    src: "{{ src }}"
+    dest: "{{ dest }}"
+    state: link
+
+

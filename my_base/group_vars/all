@@ -1,0 +1,7 @@
+---
+# Variables listed are applicable to all host groups
+ssh_port_base: 22
+ssh_port_protected: 42424
+my_pvt_user: cpenar
+ansible_user: ansible
+formatdatetime: "{{ ansible_date_time.date }}_{{ ansible_date_time.time }}"

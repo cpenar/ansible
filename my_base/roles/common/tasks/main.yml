@@ -1,0 +1,51 @@
+---
+- name: Full system upgrade
+  include: system_upgrade.yml
+
+- name: Create ansible user
+  user: name={{ ansible_user }} system=yes
+
+- name: Install usual apps
+  package: name={{ item }} state=latest
+  with_items:
+     - sudo
+     - zsh
+     - git
+     - curl
+     - wget
+     - exuberant-ctags
+     - ansible
+     - silversearcher-ag
+     - python3
+     - vim
+
+- name: Create my private user
+  user: name={{ my_pvt_user }} shell=/usr/bin/zsh
+
+- name: Include user to common groups
+  include: tools/add2groups.yml user={{ my_pvt_user }} isadm=1
+
+- name: Configure my user
+  become: true
+  become_user: "{{ my_pvt_user }}"
+  block:
+     - name: Install Oh My Zsh
+       git: 
+         repo: https://github.com/robbyrussell/oh-my-zsh.git
+         dest: ~/.oh-my-zsh
+     - name: Install my conf files for my pvt user
+       git:
+         repo: ssh://git@github.com/cpenar/conffiles.git
+         dest: ~/work/conffiles
+     - name: Install Vundle
+       git:
+         repo: https://github.com/VundleVim/Vundle.vim.git
+         dest: ~/.vim/bundle/Vundle.vim
+
+     - name: Link my conffiles
+       include: tools/linkfile.yml src="{{ item.src }}" dest="{{ item.dest }}"
+       with_items:
+          - { src: '/home/cpenar/work/conffiles/.zshrc', dest: '/home/cpenar/.zshrc'}
+          - { src: '/home/cpenar/work/conffiles/.vimrc_ultisnip', dest: '/home/cpenar/.vimrc' }
+          - { src: '/home/cpenar/work/conffiles/.i3_config', dest: '/home/cpenar/.i3/config' }
+          - { src: '/home/cpenar/work/conffiles/.gitconfig', dest: '/home/cpenar/.gitconfig' }

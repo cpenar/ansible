@@ -1,0 +1,17 @@
+---
+# Add common group to user, the user is passed as parameter
+# ARGS:
+#   user: the user
+#   isadm: optional, bool
+
+- fail: msg='Need to be root for this playbook'
+  when: ansible_user_id != 'root'
+- user:
+      name: "{{ user }}"
+      groups: cdrom,dip,plugdev,lpadmin,sambashare
+      append: yes
+- when: isadm
+  user:
+      name: "{{ user }}"
+      groups: adm,sudo
+      append: yes

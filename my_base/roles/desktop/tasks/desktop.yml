@@ -1,0 +1,7 @@
+---
+- name: install apps
+  package: name={{ item }} state=latest
+  with_items:
+     - vlc
+     - i3
+     - thunderbird

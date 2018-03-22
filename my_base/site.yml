@@ -1,0 +1,23 @@
+---
+# deploy the base installation for my systems
+
+- name: apply common configuration to all nodes
+  hosts: all
+  remote_user: root
+
+  roles:
+     - common
+
+- name: configure desktop
+  hosts: desktop
+  remote_user: root
+
+  roles:
+     - desktop
+
+- name: configure my base tinyserver
+  hosts: tinyserver
+  remote_user: root
+
+  roles:
+     - tinyserver
