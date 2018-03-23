@@ -2,22 +2,8 @@
 - name: Full system upgrade
   include: system_upgrade.yml
 
-- name: Create ansible user
-  user: name={{ ansible_user }} system=yes
-
 - name: Install usual apps
-  package: name={{ item }} state=latest
-  with_items:
-     - sudo
-     - zsh
-     - git
-     - curl
-     - wget
-     - exuberant-ctags
-     - ansible
-     - silversearcher-ag
-     - python3
-     - vim
+  include: install_usual_apps.yml
 
 - name: Create my private user
   user: name={{ my_pvt_user }} shell=/usr/bin/zsh

@@ -1,0 +1,28 @@
+---
+- name: Install usual apps
+  package: name={{ item }} state=latest
+  with_items:
+     - sudo
+     - zsh
+     - git
+     - curl
+     - wget
+     - ansible
+     - python3
+     - vim
+     - "{{ ctags }}"
+     - "{{ silversearcher }}"
+
+- name: Arch install ctags ans silversearcher
+  when: ansible_os_family == 'Archlinux'
+  package: name={{ item }} state=latest
+  with_items:
+    - ctags
+    - the_silver_searcher
+
+- name: Debian install ctags ans silversearcher
+  when: ansible_os_family == 'Debian'
+  package: name={{ item }} state=latest
+  with_items:
+    - exuberant-ctags
+    - silversearcher-ag
