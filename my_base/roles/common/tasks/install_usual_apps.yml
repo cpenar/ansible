@@ -8,21 +8,20 @@
      - curl
      - wget
      - ansible
-     - python3
      - vim
-     - "{{ ctags }}"
-     - "{{ silversearcher }}"
 
-- name: Arch install ctags ans silversearcher
+- name: Arch install apps
   when: ansible_os_family == 'Archlinux'
   package: name={{ item }} state=latest
   with_items:
+    - python
     - ctags
     - the_silver_searcher
 
-- name: Debian install ctags ans silversearcher
+- name: Debian install apps
   when: ansible_os_family == 'Debian'
   package: name={{ item }} state=latest
   with_items:
+    - python3
     - exuberant-ctags
     - silversearcher-ag

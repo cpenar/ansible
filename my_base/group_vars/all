@@ -3,5 +3,16 @@
 ssh_port_base: 22
 ssh_port_protected: 42424
 my_pvt_user: cpenar
-ansible_user: ansible
+
+usual_groups: 
+  - - cdrom
+    - dip
+    - plugdev
+    - lpadmin
+    - sambashare
+
+adm_groups: 
+  - - adm
+    - sudo
+
 formatdatetime: "{{ ansible_date_time.date }}_{{ ansible_date_time.time }}"

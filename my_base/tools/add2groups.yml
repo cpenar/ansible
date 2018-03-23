@@ -6,12 +6,24 @@
 
 - fail: msg='Need to be root for this playbook'
   when: ansible_user_id != 'root'
+
+- name: Ensure group exist
+  group:
+    name: "{{ item }}"
+    state: present
+    system: yes
+  with_items: "{{ usual_groups | union(adm_groups) }}"
+
 - user:
       name: "{{ user }}"
-      groups: cdrom,dip,plugdev,lpadmin,sambashare
+      groups: "{{ item  }}"
       append: yes
+  with_items: "{{ usual_groups }}"
+
 - when: isadm
   user:
       name: "{{ user }}"
-      groups: adm,sudo
+      groups: "{{ item }}"
       append: yes
+  with_items: "{{ adm_groups }}"
+

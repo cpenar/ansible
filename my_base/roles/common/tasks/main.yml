@@ -2,7 +2,7 @@
 - name: Full system upgrade
   include: system_upgrade.yml
 
-- name: Install usual apps
+- name: Include install usual apps
   include: install_usual_apps.yml
 
 - name: Create my private user
