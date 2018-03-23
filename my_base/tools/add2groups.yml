@@ -4,9 +4,6 @@
 #   user: the user
 #   isadm: optional, bool
 
-- fail: msg='Need to be root for this playbook'
-  when: ansible_user_id != 'root'
-
 - name: Ensure group exist
   group:
     name: "{{ item }}"
