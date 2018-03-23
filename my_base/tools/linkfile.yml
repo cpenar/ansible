@@ -24,6 +24,8 @@
           src: "{{ thelink.stat.lnk_source }}"
           dest: "{{ dest }}.saved_{{ formatdatetime }}"
           state: link
+     - name: finally remove it
+       file: path="{{ dest }}" state=absent
 
 - name: Ensure directory exist to create link
   command: dirname "{{ dest }}"
