@@ -3,8 +3,16 @@
   include: system_upgrade.yml
   become: true
 
-- name: Include install usual apps
+- name: Install usual apps
   include: install_usual_apps.yml
+  become: true
+
+- name: Create ansible user
+  user: name={{ ansib_user }} system=yes
+  become: true
+
+- name: Special sudo for ansible
+  debug: msg="Do something here when security is enough"
   become: true
 
 - name: Create my private user
@@ -15,6 +23,7 @@
   include: tools/add2groups.yml user={{ my_pvt_user }} isadm=1
   become: true
 
+# Pvt user config
 - name: Install Oh My Zsh
   git: 
     repo: https://github.com/robbyrussell/oh-my-zsh.git

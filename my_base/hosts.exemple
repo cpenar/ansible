@@ -1,6 +1,6 @@
-# dont remove # or might cause problem on server type
-# just for reminder
-# localhost ansible_connection=local
+# Dont remove last ## or might cause problem on server type
+# Just for reminder
+## localhost ansible_connection=local
 
 [tinyserver]
 vps506475.ovh.net
