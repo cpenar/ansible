@@ -49,3 +49,4 @@
           - { src: '/home/cpenar/work/conffiles/.vimrc_ultisnip', dest: '/home/cpenar/.vimrc' }
           - { src: '/home/cpenar/work/conffiles/.i3_config', dest: '/home/cpenar/.i3/config' }
           - { src: '/home/cpenar/work/conffiles/.gitconfig', dest: '/home/cpenar/.gitconfig' }
+          - { src: '/home/cpenar/work/conffiles/cpenar.zsh-theme', dest: '/home/cpenar/.oh-my-zsh/themes/cpenar.zsh-theme' }

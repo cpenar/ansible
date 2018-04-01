@@ -1,10 +1,10 @@
 ---
 - name: Do a full Archlinux system upgrade
-  when: ansible_os_family == 'Archlinux'
+  when: ansible_os_family|lower == 'archlinux'
   pacman: update_cache=yes upgrade=yes
 
 - name: Do a full Debian system dist-upgrade
-  when: ansible_os_family == 'Debian'
+  when: ansible_os_family|lower == 'debian'
   apt: update_cache=yes upgrade=dist
 
 
